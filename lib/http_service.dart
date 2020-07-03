@@ -21,4 +21,12 @@ class HttpService {
       throw "Server Error, failed to reterived posts.";
     }
   }
+
+  Future<void> deletePost(int id) async {
+    Response response = await delete("$postsUrl/$id");
+
+    if (response.statusCode == 200) {
+      print('deleted');
+    }
+  }
 }

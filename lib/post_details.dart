@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:httpdemo/http_service.dart';
 
 import 'post_model.dart';
 
 class PostDetails extends StatelessWidget {
   final Post post;
-  const PostDetails({Key key, @required this.post}) : super(key: key);
+  final HttpService httpservice = HttpService();
+
+  PostDetails({Key key, @required this.post}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text("Post Details"),
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.delete),
+          onPressed: () async {
+            await httpservice.deletePost(post.id);
+            Navigator.of(context).pop();
+          },
         ),
         body: SingleChildScrollView(
           child: Padding(
